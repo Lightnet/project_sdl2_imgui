@@ -49,6 +49,7 @@ else:
 
 system = platform.system()
 
+thirdparty_libs = []
 
 if system=='Windows':
 	print("**** OS: WINDOW")
@@ -64,6 +65,25 @@ if system=='Windows':
 	#env.Library('imgui_impl_sdl',LIBS=['SDL2','SDL2main','SDL2test'],LIBPATH=['C:\\SDL2-2.0.5\\lib\\x86'])
 	#env.Append(LIBS=File('C:\\SDL2-2.0.5\\lib\\x86\\SDL2.dll'))
 	#env.Append(LIBS=['opengl32','SDL2main','SDL2','SDL2test'],LIBPATH=['C:\\SDL2-2.0.5\\lib\\x86'],RPATH=[os.path.abspath(os.curdir + "/bin")])
+	dir = os.getcwd()
+	print(dir)
+	thirdparty_libs += env.Glob( dir +'/libs/*.dll')
+
+	#for lib in thirdparty_libs:
+		#name_parts = os.path.splitext(lib.name)
+		#print(lib.name)
+		#if name_parts[1] == '.dll':
+			#print("found!")
+			# TODO: Need to publish 'libfoo.dylib' or 'libfoo.a' as both
+			# 'libfoo' and 'foo'.  Need to clean up sconscripts to remove 'lib' prefix
+			# from all libs for mac, linux.
+			#lib_basename = name_parts[0]
+			#print(lib_basename)
+			#env.Publish(lib_basename, 'run', lib)
+			#env.Publish(lib_basename[3:], 'run', lib)
+			
+	#copy file or folder to bin dir
+	env.Install("bin","libs\SDL2.dll")
 
 	#application
 	env.Program('bin\\main',Glob('main\\*.cpp'),LIBS=['opengl32','imgui','SDL2main','SDL2','SDL2test'],LIBPATH=['.','bin','C:\\SDL2-2.0.5\\lib\\x86'])
