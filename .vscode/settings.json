@@ -1,0 +1,7 @@
+{
+    "python.linting.pylintEnabled": false,
+    "files.associations": {
+        "SConstruct": "python",
+        "iostream": "cpp"
+    }
+}
