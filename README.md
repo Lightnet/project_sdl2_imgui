@@ -14,15 +14,13 @@ Programs:
  * SDL 2.0.5 (www.libsdl.org)
  * imgui v1.51 (https://github.com/ocornut/imgui)
 
-Information: Simple compile build using vs2017 tool to display sdl2 with imgui test.
-
-Note: It is set to debug since I have not yet work on release compile yet.
-
-The dll is the current build from libs folder testing.
+Information: Simple compile build using VS2017 tool to display sdl2 with imgui test. The dll library is the current build for this application. Default set to vs2017 build.
 
 Configs:
  * ./SConstrct 
  * ./.vscode/Settings.json
+
+command line: %VS140COMNTOOLS%\vsvars32.bat
 
 [Scons Builds]:
 

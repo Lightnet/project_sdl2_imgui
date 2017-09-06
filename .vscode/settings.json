@@ -1,10 +1,9 @@
 {
-    "python.linting.pylintEnabled": false,
     "files.associations": {
         "SConstruct": "python",
         "iostream": "cpp"
     },
-    
+       
     "projectname":"project_cgui",   //project name
     "development_mode":"debug",     //development build mode
     "output_dir":"bin",             //out put bin builds

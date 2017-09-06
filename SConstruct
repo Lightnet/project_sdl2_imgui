@@ -28,6 +28,7 @@ print('**** Compiling in ' + projectmode + ' mode...')
 #--------
 # Config files
 #--------
+VS_TOOL_BAT = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat' #window 10 visual studio tool batch
 SDL2_INCLUDE_PATH = 'C:\\SDL2-2.0.5\\include'
 SDL2_LIB_PATH = 'C:\\SDL2-2.0.5\\lib\\x86'
 IMGUI_PATH = 'imgui'
@@ -51,6 +52,10 @@ elif projecttool == 'window': #window tool default to vs2017
 	#need to lanuch vcvars32.bat script so it can be add to os.environ else it will display 'cl' is not recognized as an internal or external command
 	#this will deal with the Visual Studio 
 	env = Environment(ENV = os.environ) #this load user complete external environment
+	#env = Environment(ENV = os.environ, MSVC_USE_SCRIPT="%VS140COMNTOOLS%\\vsvars32.bat") #this load user complete external environment
+	#env = Environment(ENV = os.environ, MSVC_USE_SCRIPT=VS_TOOL_BAT) #this load user complete external environment
+
+	#print(os.environ)
 else:
 	#default current tool from os
 	env = Environment(ENV = os.environ) #this load user complete external environment
