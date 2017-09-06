@@ -29,3 +29,6 @@ The dll is the current build from libs folder testing.
 [window 10 | viusal studio]
 
    `scons tool=window`
+
+Credits: 
+ * http://www.damianperdiz.com/scons-cross-platform-build-sdl2-and-imgui-example.html

@@ -25,12 +25,21 @@ if not (projectmode in ['debug','release']):
 #tell the user what we're doing
 print('**** Compiling in ' + projectmode + ' mode...')
 
+#--------
+# Config files
+#--------
+SDL2_INCLUDE_PATH = 'C:\\SDL2-2.0.5\\include'
+SDL2_LIB_PATH = 'C:\\SDL2-2.0.5\\lib\\x86'
+IMGUI_PATH = 'imgui'
+#--------
+# Main application folder dir and output folder
+#--------
+projectname = 'project_cgui'				#holds the project name
+projectpackage = 'main'						#holds the project folder
+buildroot = './bin/' + projectmode			#holds the root of the build directory tree
+builddir = './' + projectpackage  			#holds the build directory for this project
+targetpath = buildroot + '/' + projectname	#holds the path to the executable in the build directory
 #-------
-
-project = 'main'					#holds the project name
-buildroot = './bin/' + projectmode		#holds the root of the build directory tree
-builddir = './' + project  				#holds the build directory for this project
-targetpath = buildroot + '/' + project	#holds the path to the executable in the build directory
 
 if projecttool == 'mingw': #mingw tool
 	env = Environment(ENV = os.environ, tools = ['mingw'])
@@ -49,45 +58,30 @@ else:
 
 system = platform.system()
 
-thirdparty_libs = []
-
+#thirdparty_libs = []
+#--------
+# Operating System Checks and Tools
+#--------
 if system=='Windows':
 	print("**** OS: WINDOW")
-	# Something to do with link error
-	env.Append(LINKFLAGS=['/SUBSYSTEM:CONSOLE'])
-	#inlcude file
-	env.Append(CPPPATH=['C:\\SDL2-2.0.5\\include','imgui'])
+	if projecttool == 'window':
+		print("**** Window Tool")
+		# Something to do with link error
+		env.Append(LINKFLAGS=['/SUBSYSTEM:CONSOLE'])
+		#pass
+
+	if projecttool == 'mingw':
+		print("**** Mingw Tool")
+		#pass
+
+	env.Append(CPPPATH=[SDL2_INCLUDE_PATH,IMGUI_PATH])
 	#Repository('C:\\SDL2-2.0.5\\include','imgui')
 	#build lib file
-	env.Library('bin\\imgui',Glob('imgui\\*.cpp'))
-
-	#env.Library(target='imgui_impl_sdl',LIBS=['SDL2','SDL2main','SDL2test'],LIBPATH=['C:\\SDL2-2.0.5\\lib\\x86'])
-	#env.Library('imgui_impl_sdl',LIBS=['SDL2','SDL2main','SDL2test'],LIBPATH=['C:\\SDL2-2.0.5\\lib\\x86'])
-	#env.Append(LIBS=File('C:\\SDL2-2.0.5\\lib\\x86\\SDL2.dll'))
-	#env.Append(LIBS=['opengl32','SDL2main','SDL2','SDL2test'],LIBPATH=['C:\\SDL2-2.0.5\\lib\\x86'],RPATH=[os.path.abspath(os.curdir + "/bin")])
-	dir = os.getcwd()
-	print(dir)
-	thirdparty_libs += env.Glob( dir +'/libs/*.dll')
-
-	#for lib in thirdparty_libs:
-		#name_parts = os.path.splitext(lib.name)
-		#print(lib.name)
-		#if name_parts[1] == '.dll':
-			#print("found!")
-			# TODO: Need to publish 'libfoo.dylib' or 'libfoo.a' as both
-			# 'libfoo' and 'foo'.  Need to clean up sconscripts to remove 'lib' prefix
-			# from all libs for mac, linux.
-			#lib_basename = name_parts[0]
-			#print(lib_basename)
-			#env.Publish(lib_basename, 'run', lib)
-			#env.Publish(lib_basename[3:], 'run', lib)
-			
+	env.Library(buildroot + '\\imgui',Glob(IMGUI_PATH + '\\*.cpp'))
 	#copy file or folder to bin dir
-	env.Install("bin","libs\SDL2.dll")
-
+	env.Install(buildroot,"libs\SDL2.dll")
 	#application
-	env.Program('bin\\main',Glob('main\\*.cpp'),LIBS=['opengl32','imgui','SDL2main','SDL2','SDL2test'],LIBPATH=['.','bin','C:\\SDL2-2.0.5\\lib\\x86'])
-	#env.Program('bin\\main',Glob('main\\*.cpp'),LIBS=['opengl32','imgui','SDL2main','SDL2','SDL2test'],LIBPATH=['.','bin','C:\\SDL2-2.0.5\\lib\\x86'])
-	
+	env.Program(targetpath, Glob(builddir + '\\*.cpp'),LIBS=['opengl32','imgui','SDL2main','SDL2','SDL2test'],LIBPATH=['.',buildroot ,SDL2_LIB_PATH])
 
-print("**** Script Finish Here!")
+
+print("**** Script Finish Here! Win32")
