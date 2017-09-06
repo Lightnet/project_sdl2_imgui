@@ -20,11 +20,17 @@ Note: It is set to debug since I have not yet work on release compile yet.
 
 The dll is the current build from libs folder testing.
 
+Configs:
+ * ./SConstrct 
+ * ./.vscode/Settings.json
+
 [Scons Builds]:
 
 [Mingw]
 
    `scons tool=mingw`
+
+   GL3 does not work for some reason. Just an error for "wglGetProcAddress"
 
 [window 10 | viusal studio]
 

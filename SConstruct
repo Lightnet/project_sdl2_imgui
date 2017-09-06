@@ -75,14 +75,17 @@ if system=='Windows':
 		print("**** Mingw Tool")
 		#pass
 
-	env.Append(CPPPATH=[SDL2_INCLUDE_PATH,IMGUI_PATH])
+	env.Append(CPPPATH=[SDL2_INCLUDE_PATH,IMGUI_PATH,'libs\\gl3w']) #SDL2, Imgui, Gl3w
 	#Repository('C:\\SDL2-2.0.5\\include','imgui')
 	#build lib file
-	env.Library(buildroot + '\\imgui',Glob(IMGUI_PATH + '\\*.cpp'))
+	env.Library(buildroot + '\\imgui',Glob(IMGUI_PATH + '\\*.cpp')) #Imgui
+
+	env.Library(buildroot + '\\gl3w',Glob('libs\\gl3w\\GL\\*.c')) #Gl3w
+
 	#copy file or folder to bin dir
 	env.Install(buildroot,"libs\SDL2.dll")
 	#application
-	env.Program(targetpath, Glob(builddir + '\\*.cpp'),LIBS=['opengl32','imgui','SDL2main','SDL2','SDL2test'],LIBPATH=['.',buildroot ,SDL2_LIB_PATH])
+	env.Program(targetpath, Glob(builddir + '\\*.cpp'),LIBS=['opengl32','gl3w','imgui','SDL2main','SDL2','SDL2test'],LIBPATH=['.',buildroot ,SDL2_LIB_PATH])
 
 
 print("**** Script Finish Here! Win32")

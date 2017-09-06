@@ -3,5 +3,5 @@
 *.obj
 *.exe
 *.o
-bin/debug/SDL2.dll
-bin/debug/imgui.lib
+bin/
+imgui.ini
