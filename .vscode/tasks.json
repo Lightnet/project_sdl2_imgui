@@ -5,7 +5,7 @@
     //"command": "bash",
     "tasks": [
         {
-            "taskName": "Build with SCons Release",
+            "taskName": "Build with SCons Mingw Release",
             "command": "scons mode=release",
             "type": "shell",
             "group": "build",
@@ -13,7 +13,7 @@
         },
 
         {
-            "taskName": "Build with SCons Debug",
+            "taskName": "Build with SCons Mingw Debug",
             "command": "scons mode=debug",
             "type": "shell",
             "group": "build",
@@ -22,6 +22,18 @@
 
         {
             "taskName": "Build with SCons Visual Studio Debug",
+            "problemMatcher": "$msCompile", // Important to catch the status
+            "group": "build",
+            "isShellCommand": true,
+            "command": "./vsbuild.bat",
+            //"windows": {
+                //"command": "echo %cd%",
+                //"isShellCommand": true
+            //}
+        },
+
+        {
+            "taskName": "Build with SCons Visual Studio Release",
             "problemMatcher": "$msCompile", // Important to catch the status
             "group": "build",
             "isShellCommand": true,
